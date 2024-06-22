@@ -35,4 +35,9 @@ return [
         ],
     ],
 
+    'spoonacular' => [
+        'api_url' => env('SPOONACULAR_BASE_API_URL'),
+        'api_key' => env('SPOONACULAR_API_KEY'),
+    ]
+
 ];
