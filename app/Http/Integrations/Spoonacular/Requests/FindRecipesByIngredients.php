@@ -2,11 +2,18 @@
 
 namespace App\Http\Integrations\Spoonacular\Requests;
 
+use Illuminate\Support\Facades\Cache;
+use Saloon\CachePlugin\Contracts\Cacheable;
+use Saloon\CachePlugin\Contracts\Driver;
+use Saloon\CachePlugin\Drivers\LaravelCacheDriver;
+use Saloon\CachePlugin\Traits\HasCaching;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
-class FindRecipesByIngredients extends Request
+class FindRecipesByIngredients extends Request implements  Cacheable
 {
+    use HasCaching;
+
     /**
      * The HTTP method of the request
      */
@@ -35,5 +42,15 @@ class FindRecipesByIngredients extends Request
             'ranking' => $this->ranking,
             'number' => $this->number,
         ];
+    }
+
+    public function resolveCacheDriver(): Driver
+    {
+        return new LaravelCacheDriver(Cache::store('redis'));
+    }
+
+    public function cacheExpiryInSeconds(): int
+    {
+        return 3600;
     }
 }
