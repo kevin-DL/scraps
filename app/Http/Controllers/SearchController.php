@@ -21,7 +21,7 @@ class SearchController extends Controller
         $connector = new SpoonacularConnector();
         $request = new FindRecipesByIngredients(
             ingredients: array_map("trim", explode(",", $data['ingredients'])),
-            ranking: 1
+            ranking: 2
         );
 
         $response = $connector->send($request);
