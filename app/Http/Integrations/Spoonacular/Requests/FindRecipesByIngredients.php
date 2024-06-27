@@ -38,7 +38,7 @@ class FindRecipesByIngredients extends Request implements  Cacheable
     public function defaultQuery(): array
     {
         return [
-            'ingredients' => join(",", $this->ingredients),
+            'ingredients' => join(",+", $this->ingredients),
             'ranking' => $this->ranking,
             'number' => $this->number,
         ];
